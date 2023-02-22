@@ -1,16 +1,13 @@
 import React from 'react'
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import IndexScreen from "../screens/IndexScreen";
-import DetailsScreen from "../screens/DetailsScreen";
+import { Icon } from 'react-native-elements';
 import InformationScreen from "../screens/InformationScreen";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import {NavigationContainer} from "@react-navigation/native";
-import {createDrawerNavigator} from "@react-navigation/drawer";
-import LoginScreen from "../screens/LoginScreen";
+
 import IndexStack from "./IndexStack";
 import DetailsStack from "./DetailsStack";
 
 /*
+
 
 /!*Navegacion con drawer*!/
 const Drawer = createDrawerNavigator();
@@ -24,20 +21,44 @@ export default function App() {
         </Drawer.Navigator>
     );
 }
+
+
 */
 
-
 /*Navegacion con uso de Tabs*/
+
 const Tab = createBottomTabNavigator();
 
 export default function AppNavigation() {
     return (
-        <Tab.Navigator screenOptions={{headerShown: false}}>
+        <Tab.Navigator screenOptions={({route})=>({headerShown:false, tabBarActiveTintColor:"purple",
+            tabBarInactiveTintColor:"black",
+            tabBarIcon:({color, size})=>showIcons(route, color, size)})}>
             <Tab.Screen name="index" component={IndexStack} options={{title: "Inicio"}} />
             <Tab.Screen name="details" component={DetailsStack} options={{title: "Detalles"}} />
-            <Tab.Screen name="info" component={InformationScreen} options={{title: "Informacion", headerShown: true}} />
+            <Tab.Screen name="info" component={InformationScreen} options={{title: "Informacion", headerShown:true}} />
         </Tab.Navigator>
     );
+}
+
+function showIcons(route,color,size){
+    let icono;
+    if(route.name=="index"){
+        icono="home-circle"
+    }
+
+    if(route.name=="details"){
+        icono="cog"
+    }
+
+    if(route.name=="info"){
+        icono="information-outline"
+    }
+
+    return(
+        <Icon type='material-community' name={icono}
+              color={color} size={size}/>
+    )
 }
 
 /*Uso de navegacion con Stack*/
