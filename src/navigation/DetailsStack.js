@@ -9,7 +9,7 @@ export default function IndexStack(){
     return(
         <Stack.Navigator>
             <Stack.Screen name="DetailsS" component={DetailsScreen} options={{title:"Detalles"}}/>
-            <Stack.Screen name="loginS" component={LoginScreen} options={{title:"LOgin"}}/>
+            {/*<Stack.Screen name="loginS" component={LoginScreen} options={{title:"LOgin"}}/>*/}
         </Stack.Navigator>
     )
 }
