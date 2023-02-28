@@ -13,12 +13,12 @@ export default function IndexScreen(props) {
     useEffect(()=>{
         const auth = getAuth();
         onAuthStateChanged(auth, (user)=>{
-           // setSession(user ? true : false)
+            setSession(user ? true : false)
         })
-        //setSession(true)
+        setSession(true)
     },[])
     if (session===null){
-        return <Loading text={"Validando"}/>
+        return <Loading text={"Validando"} visible={true}  />
     }
     return session?(
         <View>
