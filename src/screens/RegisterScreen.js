@@ -3,7 +3,7 @@ import React from "react";
 import {Image} from 'react-native-elements'
 import {useNavigation} from "@react-navigation/native";
 import RegisterForm from "../components/account/RegisterForm";
-
+import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 export default function LoginScreen(){
 
     const navigation = useNavigation()
@@ -11,7 +11,7 @@ export default function LoginScreen(){
         navigation.navigate("loginS")
     }
     return(
-        <View>
+        <KeyboardAwareScrollView>
             <Image
                 source={require("../assets/img/img.jpg")}
                 style={styles.logo}
@@ -22,7 +22,7 @@ export default function LoginScreen(){
                 <RegisterForm></RegisterForm>
                 <Text onPress={routerLogin}>Ya tiene cuenta</Text>
             </View>
-        </View>
+        </KeyboardAwareScrollView>
     )
 }
 

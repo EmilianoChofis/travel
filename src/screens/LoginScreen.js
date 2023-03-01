@@ -17,6 +17,7 @@ export default function LoginScreen(){
             />
             <Text>Formulario de login</Text>
             <View>
+
                 <Text onPress={routerRegister}>Registrate</Text>
             </View>
         </View>
