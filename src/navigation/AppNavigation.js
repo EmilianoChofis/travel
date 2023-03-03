@@ -5,6 +5,7 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 
 import IndexStack from "./IndexStack";
 import DetailsStack from "./DetailsStack";
+import ProfileScreen from "../screens/ProfileScreen";
 
 /*
 
@@ -36,7 +37,8 @@ export default function AppNavigation() {
             tabBarIcon:({color, size})=>showIcons(route, color, size)})}>
             <Tab.Screen name="index" component={IndexStack} options={{title: "Inicio"}} />
             <Tab.Screen name="details" component={DetailsStack} options={{title: "Detalles"}} />
-            <Tab.Screen name="info" component={InformationScreen} options={{title: "Informacion", headerShown:true}} />
+           {/* <Tab.Screen name="info" component={InformationScreen} options={{title: "Informacion", headerShown:true}} />*/}
+            <Tab.Screen name="profile" component={ProfileScreen} options={{title: "Perfil", headerShown:true}} />
         </Tab.Navigator>
     );
 }
@@ -54,6 +56,11 @@ function showIcons(route,color,size){
     if(route.name=="info"){
         icono="information-outline"
     }
+
+    if(route.name=="profile"){
+        icono="account-outline"
+    }
+
 
     return(
         <Icon type='material-community' name={icono}

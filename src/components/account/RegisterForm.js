@@ -1,10 +1,19 @@
 import {View, Text, StyleSheet, Button} from 'react-native'
-import React from "react";
+import React, {useState} from "react";
 import {Icon, Input} from "react-native-elements";
 import {Formik, useFormik} from "formik";
 import * as Yup from "yup"
+import {getAuth, createUserWithEmailAndPassword} from "firebase/auth";
+import Toast from "react-native-toast-message";
+import {useNavigation} from "@react-navigation/native";
 
 export default function RegisterForm() {
+
+    const navigation = useNavigation()
+
+    const [pass, setPass] = useState(false);
+    const [repeatPass, setRepeatPass] = useState(false);
+
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -18,10 +27,32 @@ export default function RegisterForm() {
         }),
         validateOnChange:false
         ,
-        onSubmit: (formValue) => {
-            console.log(formValue)
+        onSubmit: async (formValue) => {
+            try {
+                const auth = getAuth()
+                await createUserWithEmailAndPassword(
+                    auth,formValue.email, formValue.pass
+                )
+                //se puede usar las siguientes formas
+                //navigation.navigate("indexS")
+                navigation.goBack()
+            }catch (error){
+                Toast.show({
+                    type:"error",
+                    position:"bottom",
+                    text1:"Error at Sign-up"
+                })
+            }
         }
     })
+
+    const showPass = ()=>{
+        setPass(!pass)
+    }
+    const showRepeatPass = ()=>{
+        setRepeatPass(!repeatPass)
+    }
+
     return (
         <View style={styles.viewForm}>
             <Formik initialValues={formik}>
@@ -34,19 +65,19 @@ export default function RegisterForm() {
                 errorMessage={formik.errors.email}
             />
             <Input
-                containerStyle={styles.input} placeholder='Password' secureTextEntry={true}
-                rightIcon={<Icon type="material-community" name="eye-outline" iconStyle={styles.icon}/>}
+                containerStyle={styles.input} placeholder='Password' secureTextEntry={!pass}
+                rightIcon={<Icon type="material-community" name={pass ? "eye-off-outline" : "eye-outline"} iconStyle={styles.icon} onPress={showPass}/>}
                 onChangeText={text => formik.setFieldValue("pass", text)}
                 errorMessage={formik.errors.pass}
             />
             <Input
-                containerStyle={styles.input} placeholder='Repeat Password' secureTextEntry={true}
-                rightIcon={<Icon type="material-community" name="eye-outline" iconStyle={styles.icon}/>}
+                containerStyle={styles.input} placeholder='Repeat Password' secureTextEntry={!repeatPass}
+                rightIcon={<Icon type="material-community" name={repeatPass ? "eye-off-outline" : "eye-outline"} iconStyle={styles.icon} onPress={showRepeatPass}/>}
                 onChangeText={text => formik.setFieldValue("repeatPass", text)}
                 errorMessage={formik.errors.repeatPass}
             />
             <Button title={"Registrarse"} containerStyle={styles.containerBtn} buttonStyle={styles.btn}
-                    onPress={formik.handleSubmit}/>
+                    onPress={formik.handleSubmit} loading={formik.isSubmitting}/>
         </View>
     )
 }

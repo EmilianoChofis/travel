@@ -2,6 +2,7 @@ import {View, Text, StyleSheet} from 'react-native'
 import React from "react";
 import {Image} from 'react-native-elements'
 import {useNavigation} from "@react-navigation/native";
+import LoginForm from "../components/account/LoginForm";
 
 export default function LoginScreen(){
 
@@ -12,13 +13,18 @@ export default function LoginScreen(){
     return(
         <View>
             <Image
-                source={require("../assets/img/img.jpg")}
+                source={require("../assets/img/flak.jpg")}
                 style={styles.logo}
             />
-            <Text>Formulario de login</Text>
-            <View>
+            <View style={styles.contentForm}>
+                <LoginForm/>
+                <View>
 
-                <Text onPress={routerRegister}>Registrate</Text>
+                    <Text style={styles.text}>
+                        Not registered yet?
+                        <Text style={styles.link} onPress={routerRegister}> Signup</Text>
+                    </Text>
+                </View>
             </View>
         </View>
     )
@@ -30,5 +36,17 @@ const styles = StyleSheet.create({
         height:150,
         resizeMode:"contain",
         marginTop:30
+    },
+    contentForm:{
+        marginHorizontal:10
+    },
+    text:{
+        marginTop:15,
+        marginHorizontal:10
+    },
+    link:{
+        marginLeft:10,
+        color:"#2f639e",
+        fontWeight:"bold"
     }
 })

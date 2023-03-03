@@ -13,7 +13,7 @@ export default function LoginScreen(){
     return(
         <KeyboardAwareScrollView>
             <Image
-                source={require("../assets/img/img.jpg")}
+                source={require("../assets/img/flak.jpg")}
                 style={styles.logo}
             />
 
