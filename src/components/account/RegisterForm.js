@@ -42,6 +42,7 @@ export default function RegisterForm() {
                     position:"bottom",
                     text1:"Error at Sign-up"
                 })
+                console.log(error)
             }
         }
     })
