@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Icon } from 'react-native-elements';
 import InformationScreen from "../screens/InformationScreen";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
@@ -31,6 +31,8 @@ export default function App() {
 const Tab = createBottomTabNavigator();
 
 export default function AppNavigation() {
+
+    const [session, setSession] = useState(null);
     return (
         <Tab.Navigator screenOptions={({route})=>({headerShown:false, tabBarActiveTintColor:"purple",
             tabBarInactiveTintColor:"black",

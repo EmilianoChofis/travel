@@ -3,6 +3,7 @@ import React from "react";
 import {Button} from "react-native-elements";
 import {getAuth, signOut} from "firebase/auth";
 import {useNavigation} from "@react-navigation/native";
+import ProfileInfo from "../components/account/ProfileInfo";
 export default function ProfileScreen(){
     const navigation = useNavigation()
     const auth = getAuth()
@@ -14,6 +15,7 @@ export default function ProfileScreen(){
     }
     return(
         <View>
+            <ProfileInfo/>
             <Button title="Logout"
             onPress={logout} buttonStyle={styles.button}
             titleStyle={styles.title}/>
