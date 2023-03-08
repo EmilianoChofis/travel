@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { Icon } from 'react-native-elements';
 import InformationScreen from "../screens/InformationScreen";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
@@ -6,6 +6,7 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import IndexStack from "./IndexStack";
 import DetailsStack from "./DetailsStack";
 import ProfileScreen from "../screens/ProfileScreen";
+import {getAuth, onAuthStateChanged} from "firebase/auth";
 
 /*
 
@@ -33,7 +34,16 @@ const Tab = createBottomTabNavigator();
 export default function AppNavigation() {
 
     const [session, setSession] = useState(null);
-    return (
+
+    useEffect(()=>{
+        const auth = getAuth();
+        onAuthStateChanged(auth, (user)=>{
+            setSession(user ? true : false)
+        })
+        setSession(true)
+    },[])
+
+    return session ? (
         <Tab.Navigator screenOptions={({route})=>({headerShown:false, tabBarActiveTintColor:"purple",
             tabBarInactiveTintColor:"black",
             tabBarIcon:({color, size})=>showIcons(route, color, size)})}>
@@ -42,7 +52,13 @@ export default function AppNavigation() {
            {/* <Tab.Screen name="info" component={InformationScreen} options={{title: "Informacion", headerShown:true}} />*/}
             <Tab.Screen name="profile" component={ProfileScreen} options={{title: "Perfil", headerShown:true}} />
         </Tab.Navigator>
-    );
+
+    ) :<Tab.Navigator screenOptions={({route})=>({headerShown:false, tabBarActiveTintColor:"purple",
+        tabBarInactiveTintColor:"black",
+        tabBarIcon:({color, size})=>showIcons(route, color, size)})}>
+            <Tab.Screen name="index" component={IndexStack} options={{title: "Inicio"}} />
+        </Tab.Navigator>
+
 }
 
 function showIcons(route,color,size){

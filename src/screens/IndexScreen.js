@@ -20,7 +20,7 @@ export default function IndexScreen(props) {
     if (session===null){
         return <Loading text={"Validando"} visible={true}  />
     }
-    return session?(
+    return session ?(
         <View>
             <Text>IndexScreen</Text>
             <Button title='ir a detalles' onPress={()=>navigate("details",{screen:"DetailsS"})}></Button>
